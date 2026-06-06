@@ -1,7 +1,8 @@
  import { useState } from "react";
 import SearchBar from "../components/SearchBar";
 import WeatherCard from "../components/WeatherCard";
-import { getWeather } from "../services/weatherApi";
+import {
+  getWeather,getWeatherByCoords,} from "../services/weatherApi";
 
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
@@ -28,11 +29,45 @@ function Home() {
     }
   };
 
+  const handleCurrentLocation = () => {
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const data = await getWeatherByCoords(
+          position.coords.latitude,
+          position.coords.longitude
+        );
+
+        setWeather(data);
+      } catch (error) {
+        setError("Failed to get weather");
+      } finally {
+        setLoading(false);
+      }
+    },
+    () => {
+      setError("Location access denied");
+    }
+  );
+};
+
   return (
     <div className="container text-center mt-5">
       <h1 className="mb-4">
         Weather Dashboard
       </h1>
+
+      <div className="mb-3">
+  <button
+    className="btn btn-success"
+    onClick={handleCurrentLocation}
+  >
+    📍 Use My Location
+  </button>
+</div>
 
       <SearchBar onSearch={handleSearch} />
 
