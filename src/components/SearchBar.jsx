@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 function SearchBar({ onSearch }) {
   const [city, setCity] = useState("");
 
@@ -13,15 +12,23 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="d-flex gap-2 justify-content-center mb-4"
+    >
       <input
         type="text"
+        className="form-control"
+        style={{ maxWidth: "300px" }}
         placeholder="Enter city name"
         value={city}
         onChange={(e) => setCity(e.target.value)}
       />
 
-      <button type="submit">
+      <button
+        type="submit"
+        className="btn btn-primary"
+      >
         Search
       </button>
     </form>
