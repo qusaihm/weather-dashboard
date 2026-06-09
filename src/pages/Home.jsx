@@ -12,6 +12,7 @@ import {
 
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
+import WeatherMap from "../components/WeatherMap";
 
 function Home() {
   const [weather, setWeather]   = useState(null);
@@ -169,7 +170,6 @@ function Home() {
         {weather && !loading && (
           <div className="d-flex flex-column gap-3">
 
-            {/* WeatherCard + Chart جنب بعض على md وأكبر */}
             <div className="row g-3">
               <div className="col-12 col-md-6">
                 <WeatherCard weather={weather} />
@@ -179,7 +179,6 @@ function Home() {
               </div>
             </div>
 
-            {/* ForecastCard بعرض كامل */}
             {forecast && (
               <div className="row">
                 <div className="col-12">
@@ -187,6 +186,15 @@ function Home() {
                 </div>
               </div>
             )}
+
+
+            {weather && !loading && (
+               <div className="row">
+               <div className="col-12">
+               <WeatherMap weather={weather} />
+               </div>
+               </div>
+              )}
 
           </div>
         )}
